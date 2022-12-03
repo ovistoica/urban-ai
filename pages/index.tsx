@@ -27,6 +27,7 @@ export default function MainPage() {
                     e.preventDefault();
 
                     setLoading(true);
+                    setMeaning(null);
                     setError(null);
                     fetch('/api/openai', {
                       method: 'POST',
@@ -36,7 +37,6 @@ export default function MainPage() {
                         if (!response.ok) {
                           setError('Something went wrong');
                         }
-                        setLoading(false);
                         const body = await response.json();
 
                         console.log(body);
@@ -44,6 +44,7 @@ export default function MainPage() {
                         if (body.choices) {
                           setMeaning(body?.choices?.[0]?.text);
                         }
+                        setLoading(false);
                       })
                       .catch();
                   }}
@@ -58,6 +59,7 @@ export default function MainPage() {
                       <textarea
                         name={'slang'}
                         value={phrase}
+                        maxLength={200}
                         onChange={(e) => setPhrase(e.target.value)}
                         id={'slang'}
                         className="block w-full rounded border-gray-300 px-4 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"

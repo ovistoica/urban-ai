@@ -10,8 +10,9 @@ const openai = new OpenAIApi(configuration);
 
 async function createSlangExplainCompletion(slang: string) {
   return await openai.createCompletion({
+    max_tokens: 400,
     model: 'text-davinci-002',
-    prompt: 'Translate this into everyday language: \n' + slang,
+    prompt: 'Explain the following slang in plain language: \n' + slang,
   });
 }
 
